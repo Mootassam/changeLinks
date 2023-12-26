@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  backend:
+    build: ./backend
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    depends_on:
+      - redis
+    environment:
+      REDIS_HOST: redis  # Set the hostname to the Redis service name
+  web:
+    build: ./frontend
+    ports:
+      - 80:80
+    restart: unless-stopped
+    stdin_open: true
+  redis:
+    image: 'redis:latest'
